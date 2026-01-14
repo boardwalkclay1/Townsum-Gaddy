@@ -1,0 +1,103 @@
+<!-- schedule.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Towsum & Gaddy — Schedule a Delivery</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- reuse same <style> block from index.html, plus form styles from earlier single-page version -->
+</head>
+<body data-theme="dark">
+  <!-- loading, background, admin zone, header -->
+  <main>
+    <section id="schedule">
+      <h2>Schedule a Delivery</h2>
+      <p>
+        Use this form to request a delivery. Your details are stored securely in our system and sent directly to
+        <strong>Towsummanadement55@gmail.com</strong>.
+      </p>
+      <form id="schedule-form">
+        <div class="two-col">
+          <div>
+            <label for="client-name">Your Name</label>
+            <input id="client-name" required />
+          </div>
+          <div>
+            <label for="client-phone">Phone</label>
+            <input id="client-phone" required />
+          </div>
+        </div>
+        <div class="two-col">
+          <div>
+            <label for="client-email">Email</label>
+            <input id="client-email" type="email" required />
+          </div>
+          <div>
+            <label for="preferred-date">Preferred Date &amp; Time</label>
+            <input id="preferred-date" type="datetime-local" required />
+          </div>
+        </div>
+        <label for="pickup-address">Pickup Address</label>
+        <input id="pickup-address" required />
+        <label for="dropoff-address">Drop‑off Address</label>
+        <input id="dropoff-address" required />
+        <label for="cargo-description">Cargo Description</label>
+        <textarea id="cargo-description" placeholder="What are we moving? Size, weight, special handling…"></textarea>
+        <label for="addons">Add‑ons</label>
+        <select id="addons">
+          <option value="">None</option>
+          <option value="liftgate">Liftgate service</option>
+          <option value="two-person">Two‑person crew</option>
+          <option value="both">Liftgate + two‑person crew</option>
+        </select>
+        <button type="submit" class="truck-btn" style="margin-top:14px;">Submit Request</button>
+        <p class="small-text" style="margin-top:6px;">
+          By submitting, you agree to our <a href="privacy.html" class="link">Privacy Policy</a>.
+        </p>
+      </form>
+    </section>
+  </main>
+  <script>
+    // theme + loading + admin redirect same as index
+    const themeToggle=document.getElementById('theme-toggle');
+    const themeIcon=document.getElementById('theme-icon');
+    const themeLabel=document.getElementById('theme-label');
+    function applyTheme(t){document.body.setAttribute('data-theme',t);if(t==='light'){themeIcon.textContent='☀️';themeLabel.textContent='Light';}else{themeIcon.textContent='🌙';themeLabel.textContent='Dark';}localStorage.setItem('tg_theme',t);}
+    applyTheme(localStorage.getItem('tg_theme')||'dark');
+    themeToggle.addEventListener('click',()=>{const c=document.body.getAttribute('data-theme');applyTheme(c==='dark'?'light':'dark');});
+    window.addEventListener('load',()=>{setTimeout(()=>{document.getElementById('loading-screen').style.display='none';},1600);});
+    document.getElementById('admin-click-zone').addEventListener('click',(()=>{
+      let count=0,timer=null;return function(){count++;if(timer)clearTimeout(timer);timer=setTimeout(()=>{count=0;},800);if(count>=4){count=0;window.location.href='admin.html';}}
+    })());
+    // localStorage keys
+    const STORAGE_KEYS={clients:'tg_clients',deliveries:'tg_deliveries'};
+    function getData(k){try{return JSON.parse(localStorage.getItem(k))||[]}catch{return[]}}
+    function setData(k,v){localStorage.setItem(k,JSON.stringify(v))}
+    const scheduleForm=document.getElementById('schedule-form');
+    scheduleForm.addEventListener('submit',e=>{
+      e.preventDefault();
+      const name=document.getElementById('client-name').value.trim();
+      const phone=document.getElementById('client-phone').value.trim();
+      const email=document.getElementById('client-email').value.trim();
+      const datetime=document.getElementById('preferred-date').value.trim();
+      const pickup=document.getElementById('pickup-address').value.trim();
+      const dropoff=document.getElementById('dropoff-address').value.trim();
+      const cargo=document.getElementById('cargo-description').value.trim();
+      const addons=document.getElementById('addons').value;
+      const clients=getData(STORAGE_KEYS.clients);
+      const deliveries=getData(STORAGE_KEYS.deliveries);
+      clients.push({name,phone,email,address:pickup,notes:`Drop‑off: ${dropoff}. Cargo: ${cargo}`});
+      setData(STORAGE_KEYS.clients,clients);
+      deliveries.push({id:'D'+Date.now(),clientName:name,pickup,dropoff,datetime,cargo,addons,status:'Pending'});
+      setData(STORAGE_KEYS.deliveries,deliveries);
+      const subject=encodeURIComponent('New Delivery Request - Towsum & Gaddy');
+      const body=encodeURIComponent(
+        `New delivery request:\n\nName: ${name}\nPhone: ${phone}\nEmail: ${email}\nPreferred Date/Time: ${datetime}\nPickup Address: ${pickup}\nDrop‑off Address: ${dropoff}\nCargo: ${cargo}\nAdd‑ons: ${addons||'None'}\n\nThis request was submitted via the Towsum & Gaddy website.`
+      );
+      window.location.href=`mailto:Towsummanadement55@gmail.com?subject=${subject}&body=${body}`;
+      alert('Your request has been recorded and prepared for email. Thank you!');
+      scheduleForm.reset();
+    });
+  </script>
+</body>
+</html>
