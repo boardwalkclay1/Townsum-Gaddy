@@ -1,27 +1,134 @@
-<!-- contact.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <title>Towsum & Gaddy — Contact</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <!-- reuse same <style> block from index.html -->
+
+  <!-- Correct global links -->
+  <link rel="stylesheet" href="styles/style.css">
+  <script src="scripts/app.js" defer></script>
 </head>
+
 <body data-theme="dark">
-  <!-- loading, background, admin zone, header -->
+
+  <!-- Hidden admin access -->
+  <div id="admin-click-zone" style="position:fixed;top:0;right:0;width:60px;height:60px;z-index:50;"></div>
+
+  <!-- Loading screen -->
+  <div id="loading-screen">
+    <div class="loading-van">
+      Towsum &amp; Gaddy<br/>Delivery Services
+      <div class="loading-van-wheels"></div>
+      <div class="loading-van-headlights"></div>
+    </div>
+    <div class="loading-text">Loading your delivery lane…</div>
+  </div>
+
+  <!-- Road background -->
+  <div class="background-road">
+    <div class="road">
+      <div class="road-line" style="animation-delay:0s"></div>
+      <div class="road-line" style="animation-delay:.25s"></div>
+      <div class="road-line" style="animation-delay:.5s"></div>
+      <div class="road-line" style="animation-delay:.75s"></div>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header>
+    <div class="nav">
+      <div class="logo">Towsum &amp; Gaddy</div>
+
+      <nav class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="services.html">Services</a>
+        <a href="pricing.html">Pricing</a>
+        <a href="schedule.html">Schedule</a>
+        <a href="contact.html" style="opacity:1;font-weight:700;">Contact</a>
+        <a href="privacy.html">Privacy</a>
+      </nav>
+
+      <div class="nav-right">
+        <button class="theme-toggle" id="theme-toggle">
+          <span id="theme-icon">🌙</span>
+          <span id="theme-label">Dark</span>
+        </button>
+        <button class="truck-btn" onclick="location.href='schedule.html'">Schedule</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN CONTENT -->
   <main>
+
+    <!-- CONTACT INTRO -->
     <section id="contact">
-      <h2>Contact</h2>
-      <p>Have questions or need a custom quote?</p>
-      <p class="small-text">
+      <h2>Contact Towsum & Gaddy</h2>
+      <p>
+        Whether you need a custom quote, have questions about nationwide delivery, or want to set up a business
+        partnership — our team is here to help.
+      </p>
+
+      <p class="small-text" style="margin-top:10px;">
         Email: <strong>Towsummanadement55@gmail.com</strong><br/>
         Hours: Mon–Sat, standard business hours (custom arrangements available)
       </p>
+
       <p class="small-text" style="margin-top:10px;">
-        Ready to book? <a href="schedule.html" class="link">Schedule a delivery</a>.
+        Prefer to book directly? <a href="schedule.html" class="link">Schedule a delivery</a>.
       </p>
     </section>
+
+    <!-- CONTACT FORM -->
+    <section id="contact-form-section">
+      <h2>Send Us a Message</h2>
+      <p class="small-text">Your message goes directly to our dispatch inbox.</p>
+
+      <form id="contact-form">
+        <div class="two-col">
+          <div>
+            <label>Your Name</label>
+            <input id="c-name" required />
+          </div>
+          <div>
+            <label>Your Email</label>
+            <input id="c-email" type="email" required />
+          </div>
+        </div>
+
+        <label>Your Phone</label>
+        <input id="c-phone" required />
+
+        <label>Your Message</label>
+        <textarea id="c-message" placeholder="Tell us what you need help with…" required></textarea>
+
+        <button type="submit" class="truck-btn" style="margin-top:14px;">Send Message</button>
+      </form>
+
+      <p id="contact-result" class="small-text" style="margin-top:10px;font-weight:bold;"></p>
+    </section>
+
+    <!-- BUSINESS INQUIRIES -->
+    <section id="business">
+      <h2>Business & Partnership Inquiries</h2>
+      <p>
+        Towsum & Gaddy works with retail stores, warehouses, furniture outlets, event companies, and commercial clients
+        nationwide. If you need recurring deliveries or contract logistics, our team will build a custom plan for you.
+      </p>
+      <button class="truck-btn secondary" onclick="location.href='schedule.html'">Start a Business Request</button>
+    </section>
+
+    <!-- REFERRAL REMINDER -->
+    <section id="referral">
+      <h2>Earn 15% Off Your Next Delivery</h2>
+      <p>
+        Refer a friend or business and both of you receive <strong>15% off</strong> your next service.
+      </p>
+      <button class="truck-btn" onclick="location.href='schedule.html'">Schedule & Save</button>
+    </section>
+
   </main>
-  <!-- reuse same <script> as index (theme + loading + admin redirect) -->
+
 </body>
 </html>
