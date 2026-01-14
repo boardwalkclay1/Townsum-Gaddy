@@ -1,0 +1,56 @@
+<!-- admin.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Towsum & Gaddy — Admin Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- reuse same <style> block from the big single-page admin version (dashboard, tables, helper popup, etc.) plus the truck cursor + loading styles from index.html -->
+</head>
+<body data-theme="dark">
+  <!-- loading, background -->
+  <div id="loading-screen">
+    <div class="loading-van">
+      Towsum &amp; Gaddy<br/>Delivery Services
+      <div class="loading-van-wheels"></div>
+      <div class="loading-van-headlights"></div>
+    </div>
+    <div class="loading-text">Loading your delivery lane…</div>
+  </div>
+  <div class="background-road">
+    <div class="road">
+      <div class="road-line" style="animation-delay:0s"></div>
+      <div class="road-line" style="animation-delay:.25s"></div>
+      <div class="road-line" style="animation-delay:.5s"></div>
+      <div class="road-line" style="animation-delay:.75s"></div>
+    </div>
+  </div>
+
+  <!-- dashboard only (no public header) -->
+  <!-- reuse the full dashboard HTML from the previous single-page version:
+       - dashboard overlay always visible here (no hidden click)
+       - clients/deliveries/contracts/employees/settings
+       - helper popup
+  -->
+
+  <script>
+    // theme + loading
+    function applyTheme(t){document.body.setAttribute('data-theme',t);localStorage.setItem('tg_theme',t);}
+    applyTheme(localStorage.getItem('tg_theme')||'dark');
+    window.addEventListener('load',()=>{setTimeout(()=>{document.getElementById('loading-screen').style.display='none';},1600);});
+
+    const STORAGE_KEYS={clients:'tg_clients',deliveries:'tg_deliveries',contracts:'tg_contracts',employees:'tg_employees',settings:'tg_settings'};
+    function getData(k){try{return JSON.parse(localStorage.getItem(k))||[]}catch{return[]}}
+    function setData(k,v){localStorage.setItem(k,JSON.stringify(v))}
+    function getSettings(){try{return JSON.parse(localStorage.getItem(STORAGE_KEYS.settings))||{}}catch{return{}}}
+    function setSettings(s){localStorage.setItem(STORAGE_KEYS.settings,JSON.stringify(s))}
+
+    // reuse all the dashboard JS from the previous single-page version:
+    // - refreshDashboard()
+    // - nav buttons
+    // - add client/delivery/contract/employee
+    // - change PIN
+    // - helper popup
+  </script>
+</body>
+</html>
