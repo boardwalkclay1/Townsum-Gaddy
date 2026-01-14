@@ -1,753 +1,218 @@
+<!-- index.html (Home) -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Towsum & Gaddy Delivery Services</title>
+  <title>Towsum & Gaddy — Home</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <style>
     :root {
-      --green: #2ecc71;
-      --pink: #ff6fb5;
-      --purple: #8e44ad;
-      --white: #ffffff;
-      --dark: #111111;
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    }
-
-    body {
-      background: #000;
-      color: var(--white);
-      overflow-x: hidden;
-      cursor: url('truck-cursor.png'), auto; /* replace with your custom cursor asset */
-    }
-
-    /* Loading screen */
-    #loading-screen {
-      position: fixed;
-      inset: 0;
-      background: radial-gradient(circle at top, #222 0, #000 60%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-      z-index: 9999;
-    }
-
-    .loading-van {
-      width: 260px;
-      height: 120px;
-      background: var(--white);
-      border-radius: 16px;
-      position: relative;
-      box-shadow: 0 0 30px rgba(255, 255, 255, 0.15);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--dark);
-      font-weight: 700;
-      text-align: center;
-      padding: 12px;
-      animation: van-drive 2.2s ease-in-out infinite;
-    }
-
-    .loading-van::before,
-    .loading-van::after {
-      content: "";
-      position: absolute;
-      bottom: -18px;
-      width: 40px;
-      height: 40px;
-      background: #333;
-      border-radius: 50%;
-      box-shadow: 80px 0 0 #333;
-    }
-
-    @keyframes van-drive {
-      0% { transform: translateX(-40px); }
-      50% { transform: translateX(40px); }
-      100% { transform: translateX(-40px); }
-    }
-
-    .loading-text {
-      margin-top: 16px;
-      font-size: 14px;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: #ccc;
-    }
-
-    /* Background road animation */
-    .background-road {
-      position: fixed;
-      inset: 0;
-      z-index: -1;
-      overflow: hidden;
-      background: #111;
-    }
-
-    .road {
-      position: absolute;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 60%;
-      height: 200%;
-      background: #222;
-      top: -50%;
-      box-shadow: 0 0 60px rgba(0, 0, 0, 0.8);
-    }
-
-    .road-line {
-      position: absolute;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 8px;
-      height: 40px;
-      background: #f1c40f;
-      top: -40px;
-      animation: road-move 1s linear infinite;
-    }
-
-    @keyframes road-move {
-      0% { top: -40px; }
-      100% { top: 100%; }
-    }
-
-    /* Top nav */
-    header {
-      position: sticky;
-      top: 0;
-      z-index: 20;
-      background: rgba(0, 0, 0, 0.85);
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-    }
-
-    .nav {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 12px 20px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .logo {
-      font-weight: 800;
-      font-size: 20px;
-      background: linear-gradient(90deg, var(--green), var(--pink), var(--purple));
-      -webkit-background-clip: text;
-      color: transparent;
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 18px;
-      font-size: 14px;
-    }
-
-    .nav-links a {
-      color: var(--white);
-      text-decoration: none;
-      opacity: 0.8;
-    }
-
-    .nav-links a:hover {
-      opacity: 1;
-    }
-
-    .nav-cta {
-      padding: 8px 16px;
-      border-radius: 999px;
-      background: linear-gradient(135deg, var(--green), var(--purple));
-      color: var(--white);
-      font-size: 14px;
-      text-decoration: none;
-      font-weight: 600;
-      box-shadow: 0 0 16px rgba(46, 204, 113, 0.4);
-    }
-
-    main {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 24px 20px 60px;
-    }
-
-    section {
-      margin-bottom: 60px;
-      background: rgba(0, 0, 0, 0.7);
-      border-radius: 18px;
-      padding: 24px;
-      border: 1px solid rgba(255, 255, 255, 0.06);
-      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.6);
-    }
-
-    h1, h2, h3 {
-      margin-bottom: 12px;
-    }
-
-    h1 {
-      font-size: 32px;
-    }
-
-    h2 {
-      font-size: 22px;
-    }
-
-    p {
-      margin-bottom: 10px;
-      font-size: 14px;
-      line-height: 1.6;
-      color: #e0e0e0;
-    }
-
-    .hero {
-      display: grid;
-      grid-template-columns: minmax(0, 2fr) minmax(0, 1.5fr);
-      gap: 24px;
-      align-items: center;
-    }
-
-    .hero-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 4px 10px;
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.06);
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      margin-bottom: 10px;
-    }
-
-    .hero-buttons {
-      display: flex;
-      gap: 12px;
-      margin-top: 16px;
-      flex-wrap: wrap;
-    }
-
-    .btn-primary {
-      padding: 10px 18px;
-      border-radius: 999px;
-      border: none;
-      cursor: pointer;
-      background: linear-gradient(135deg, var(--green), var(--pink));
-      color: var(--white);
-      font-weight: 600;
-      font-size: 14px;
-      box-shadow: 0 0 18px rgba(255, 111, 181, 0.4);
-    }
-
-    .btn-secondary {
-      padding: 10px 18px;
-      border-radius: 999px;
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      background: transparent;
-      color: var(--white);
-      cursor: pointer;
-      font-size: 14px;
-    }
-
-    .hero-card {
-      background: radial-gradient(circle at top, rgba(255, 111, 181, 0.2), rgba(0, 0, 0, 0.9));
-      border-radius: 18px;
-      padding: 18px;
-      border: 1px solid rgba(255, 255, 255, 0.12);
-    }
-
-    .hero-card-title {
-      font-size: 14px;
-      margin-bottom: 8px;
-      opacity: 0.8;
-    }
-
-    .hero-card-main {
-      font-size: 18px;
-      font-weight: 700;
-      margin-bottom: 8px;
-    }
-
-    .pill-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 8px;
-    }
-
-    .pill {
-      padding: 4px 10px;
-      border-radius: 999px;
-      font-size: 11px;
-      background: rgba(255, 255, 255, 0.06);
-    }
-
-    /* Schedule form */
-    form label {
-      display: block;
-      font-size: 13px;
-      margin-bottom: 4px;
-      margin-top: 10px;
-    }
-
-    input, textarea, select {
-      width: 100%;
-      padding: 8px 10px;
-      border-radius: 10px;
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      background: rgba(0, 0, 0, 0.6);
-      color: var(--white);
-      font-size: 13px;
-    }
-
-    textarea {
-      min-height: 70px;
-      resize: vertical;
-    }
-
-    .two-col {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 12px;
-    }
-
-    .small-text {
-      font-size: 12px;
-      opacity: 0.7;
-    }
-
-    /* Dashboard */
-    #admin-click-zone {
-      position: fixed;
-      top: 0;
-      right: 0;
-      width: 60px;
-      height: 60px;
-      z-index: 50;
-      cursor: pointer;
-    }
-
-    #dashboard-overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.85);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      z-index: 10000;
-    }
-
-    #dashboard {
-      width: min(1000px, 96vw);
-      height: min(620px, 90vh);
-      background: radial-gradient(circle at top, #2c003e, #050008);
-      border-radius: 20px;
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.9);
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-    }
-
-    .dashboard-header {
-      padding: 14px 18px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
-      background: linear-gradient(90deg, rgba(46, 204, 113, 0.1), rgba(142, 68, 173, 0.2));
-    }
-
-    .dashboard-title {
-      font-size: 16px;
-      font-weight: 700;
-    }
-
-    .dashboard-subtitle {
-      font-size: 11px;
-      opacity: 0.8;
-    }
-
-    .dashboard-close {
-      border: none;
-      background: rgba(0, 0, 0, 0.4);
-      color: var(--white);
-      border-radius: 999px;
-      padding: 6px 10px;
-      font-size: 11px;
-      cursor: pointer;
-    }
-
-    .dashboard-body {
-      display: grid;
-      grid-template-columns: 180px 1fr;
-      flex: 1;
-      min-height: 0;
-    }
-
-    .dashboard-sidebar {
-      border-right: 1px solid rgba(255, 255, 255, 0.12);
-      padding: 12px;
-      font-size: 13px;
-    }
-
-    .dashboard-sidebar h4 {
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      opacity: 0.7;
-      margin-bottom: 8px;
-    }
-
-    .dashboard-nav {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-
-    .dashboard-nav button {
-      width: 100%;
-      text-align: left;
-      padding: 6px 8px;
-      border-radius: 8px;
-      border: none;
-      background: transparent;
-      color: var(--white);
-      font-size: 13px;
-      cursor: pointer;
-      opacity: 0.8;
-    }
-
-    .dashboard-nav button.active,
-    .dashboard-nav button:hover {
-      background: rgba(255, 255, 255, 0.08);
-      opacity: 1;
-    }
-
-    .dashboard-main {
-      padding: 12px 14px;
-      font-size: 13px;
-      overflow: auto;
-    }
-
-    .dash-section-title {
-      font-size: 14px;
-      font-weight: 600;
-      margin-bottom: 6px;
-    }
-
-    .dash-section-sub {
-      font-size: 11px;
-      opacity: 0.7;
-      margin-bottom: 10px;
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 12px;
-      margin-top: 8px;
-    }
-
-    th, td {
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-      padding: 6px 4px;
-      text-align: left;
-    }
-
-    th {
-      font-weight: 600;
-      opacity: 0.8;
-    }
-
-    .tag {
-      display: inline-flex;
-      padding: 2px 8px;
-      border-radius: 999px;
-      font-size: 10px;
-      background: rgba(255, 255, 255, 0.08);
-    }
-
-    .tag-pending { background: rgba(241, 196, 15, 0.2); }
-    .tag-confirmed { background: rgba(46, 204, 113, 0.2); }
-    .tag-completed { background: rgba(52, 152, 219, 0.2); }
-
-    .dash-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 10px;
-      margin-bottom: 10px;
-    }
-
-    .dash-card {
-      background: rgba(0, 0, 0, 0.4);
-      border-radius: 12px;
-      padding: 8px 10px;
-      border: 1px solid rgba(255, 255, 255, 0.08);
-    }
-
-    .dash-card-label {
-      font-size: 11px;
-      opacity: 0.7;
-      margin-bottom: 2px;
-    }
-
-    .dash-card-value {
-      font-size: 15px;
-      font-weight: 600;
-    }
-
-    .small-btn {
-      padding: 6px 10px;
-      border-radius: 999px;
-      border: none;
-      font-size: 11px;
-      cursor: pointer;
-      background: linear-gradient(135deg, var(--green), var(--purple));
-      color: var(--white);
-    }
-
-    /* PIN modal */
-    #pin-modal {
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.7);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      z-index: 9000;
-    }
-
-    .pin-box {
-      background: #111;
-      border-radius: 14px;
-      padding: 18px;
-      width: 260px;
-      border: 1px solid rgba(255, 255, 255, 0.18);
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
-    }
-
-    .pin-box h3 {
-      font-size: 16px;
-      margin-bottom: 6px;
-    }
-
-    .pin-box p {
-      font-size: 12px;
-      margin-bottom: 10px;
-    }
-
-    .pin-box input {
-      margin-bottom: 10px;
-    }
-
-    .pin-actions {
-      display: flex;
-      justify-content: flex-end;
-      gap: 8px;
-    }
-
-    .link {
-      color: var(--pink);
-      text-decoration: underline;
-      cursor: pointer;
-      font-size: 12px;
-    }
-
-    @media (max-width: 800px) {
-      .hero {
-        grid-template-columns: 1fr;
-      }
-      .road {
-        width: 90%;
-      }
+      --green:#2ecc71;--pink:#ff6fb5;--purple:#9b59b6;--yellow:#f1c40f;
+      --white:#ffffff;--black:#050509;
+      --bg:#050509;--bg-soft:#101018;--card:#151524;--text:#f8f8ff;
+      --muted:#b9b9d6;--border-subtle:rgba(255,255,255,0.08);
+      --shadow-soft:0 18px 40px rgba(0,0,0,0.7);
+    }
+    body[data-theme="light"]{
+      --bg:#fdfbff;--bg-soft:#f3ecff;--card:#ffffff;--text:#1b1024;
+      --muted:#6b5a80;--border-subtle:rgba(0,0,0,0.08);
+      --shadow-soft:0 18px 40px rgba(0,0,0,0.12);
+    }
+    *{box-sizing:border-box;margin:0;padding:0;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+    body{
+      background:var(--bg);color:var(--text);overflow-x:hidden;
+      transition:background .35s ease,color .35s ease;
+      cursor:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 48 48'><defs><linearGradient id='g' x1='0%' y1='0%' x2='100%' y2='0%'><stop offset='0%' stop-color='%232ecc71'/><stop offset='50%' stop-color='%23ff6fb5'/><stop offset='100%' stop-color='%239b59b6'/></linearGradient></defs><rect x='6' y='16' width='30' height='14' rx='3' ry='3' fill='url(%23g)' stroke='%23ffffff' stroke-width='1.5'/><rect x='28' y='18' width='10' height='10' rx='2' ry='2' fill='url(%23g)' stroke='%23ffffff' stroke-width='1.2'/><text x='30' y='25' font-size='6' font-family='system-ui' fill='white'>T&amp;G</text><circle cx='14' cy='32' r='4' fill='%23333'/><circle cx='30' cy='32' r='4' fill='%23333'/><circle cx='14' cy='32' r='2' fill='%23999'/><circle cx='30' cy='32' r='2' fill='%23999'/><ellipse cx='22' cy='35' rx='14' ry='2.5' fill='rgba(0,0,0,0.35)'/></svg>") 8 8,auto;
+    }
+    #loading-screen{
+      position:fixed;inset:0;background:radial-gradient(circle at top,#2b1038 0,#050509 60%);
+      display:flex;align-items:center;justify-content:center;flex-direction:column;z-index:9999;
+    }
+    body[data-theme="light"] #loading-screen{
+      background:radial-gradient(circle at top,#ffe3f5 0,#fdfbff 60%);
+    }
+    .loading-van{
+      width:280px;height:130px;border-radius:20px;position:relative;
+      background:linear-gradient(90deg,var(--green),var(--pink),var(--purple));
+      box-shadow:0 0 40px rgba(255,111,181,.6);
+      display:flex;align-items:center;justify-content:flex-start;padding-left:70px;color:#fff;
+      font-weight:800;text-align:left;animation:van-drive 2.4s ease-in-out infinite;
+    }
+    .loading-van::before{
+      content:"";position:absolute;left:18px;top:26px;width:46px;height:32px;
+      background:rgba(255,255,255,.9);border-radius:8px 8px 4px 4px;
+    }
+    .loading-van::after{
+      content:"T&G";position:absolute;left:22px;top:48px;font-size:14px;
+      font-weight:900;color:#2c003e;text-shadow:0 1px 2px rgba(0,0,0,.3);
+    }
+    .loading-van-wheels::before,.loading-van-wheels::after{
+      content:"";position:absolute;bottom:-16px;width:40px;height:40px;
+      background:#333;border-radius:50%;box-shadow:80px 0 0 #333;
+    }
+    .loading-van-wheels::before{
+      left:40px;
+    }
+    .loading-van-wheels::after{
+      left:40px;
+    }
+    .loading-van-wheels{
+      position:absolute;inset:0;pointer-events:none;
+    }
+    .loading-van-headlights{
+      position:absolute;right:0;top:52px;width:26px;height:10px;
+      background:rgba(255,255,255,.9);border-radius:6px 0 0 6px;
+      box-shadow:-10px 0 25px rgba(255,255,200,.9);
+    }
+    .loading-text{
+      margin-top:16px;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);
+      animation:pulse 1.4s ease-in-out infinite;
+    }
+    @keyframes van-drive{
+      0%{transform:translateX(-60px)}50%{transform:translateX(40px)}100%{transform:translateX(-60px)}
+    }
+    @keyframes pulse{
+      0%,100%{opacity:.5}50%{opacity:1}
+    }
+    .background-road{
+      position:fixed;inset:0;z-index:-1;overflow:hidden;
+      background:radial-gradient(circle at top,#1a1024 0,var(--bg) 60%);
+    }
+    body[data-theme="light"] .background-road{
+      background:radial-gradient(circle at top,#ffe9ff 0,#fdfbff 60%);
+    }
+    .road{
+      position:absolute;left:50%;transform:translateX(-50%);width:60%;height:200%;
+      background:#222;top:-50%;box-shadow:0 0 60px rgba(0,0,0,.8);border-radius:40px;
+    }
+    body[data-theme="light"] .road{background:#444}
+    .road-line{
+      position:absolute;left:50%;transform:translateX(-50%);width:8px;height:40px;
+      background:var(--yellow);top:-40px;border-radius:999px;animation:road-move 1s linear infinite;
+    }
+    @keyframes road-move{0%{top:-40px}100%{top:100%}}
+    header{
+      position:sticky;top:0;z-index:20;background:rgba(5,5,9,.9);
+      backdrop-filter:blur(12px);border-bottom:1px solid var(--border-subtle);
+      transition:background .35s ease,border-color .35s ease;
+    }
+    body[data-theme="light"] header{background:rgba(253,251,255,.9)}
+    .nav{
+      max-width:1100px;margin:0 auto;padding:10px 20px;display:flex;
+      align-items:center;justify-content:space-between;gap:12px;
+    }
+    .logo{
+      font-weight:900;font-size:20px;background:linear-gradient(90deg,var(--green),var(--pink),var(--purple));
+      -webkit-background-clip:text;color:transparent;letter-spacing:.06em;text-transform:uppercase;
+    }
+    .nav-links{display:flex;gap:16px;font-size:13px;flex-wrap:wrap}
+    .nav-links a{color:var(--text);text-decoration:none;opacity:.8;transition:opacity .2s,transform .2s}
+    .nav-links a:hover{opacity:1;transform:translateY(-1px)}
+    .nav-right{display:flex;align-items:center;gap:10px}
+    .truck-btn{
+      position:relative;padding:10px 22px 10px 40px;border-radius:999px;border:none;cursor:pointer;
+      background:linear-gradient(135deg,var(--green),var(--pink));color:var(--white);font-weight:700;
+      font-size:13px;box-shadow:0 10px 24px rgba(255,111,181,.55);display:inline-flex;align-items:center;
+      gap:6px;overflow:hidden;transform-origin:center;animation:truck-bounce 2.4s ease-in-out infinite alternate;
+    }
+    .truck-btn.secondary{
+      background:linear-gradient(135deg,var(--purple),var(--pink));
+      box-shadow:0 10px 24px rgba(155,89,182,.55);animation-delay:.4s;
+    }
+    .truck-btn::before{
+      content:"";position:absolute;left:10px;width:22px;height:14px;border-radius:6px;
+      background:var(--white);box-shadow:0 10px 0 rgba(0,0,0,.15);
+    }
+    .truck-btn::after{
+      content:"";position:absolute;left:12px;bottom:4px;width:8px;height:8px;border-radius:50%;
+      background:#333;box-shadow:12px 0 0 #333;
+    }
+    @keyframes truck-bounce{
+      0%{transform:translateX(-4px) translateY(0)}50%{transform:translateX(4px) translateY(-2px)}100%{transform:translateX(-4px) translateY(0)}
+    }
+    .theme-toggle{
+      border-radius:999px;border:1px solid var(--border-subtle);background:var(--card);color:var(--text);
+      padding:6px 10px;font-size:11px;cursor:pointer;display:inline-flex;align-items:center;gap:6px;
+    }
+    .theme-toggle span{font-size:14px}
+    main{max-width:1100px;margin:0 auto;padding:24px 20px 60px}
+    section{
+      margin-bottom:60px;background:var(--card);border-radius:18px;padding:24px;
+      border:1px solid var(--border-subtle);box-shadow:var(--shadow-soft);
+      transition:background .35s,border-color .35s,box-shadow .35s;
+    }
+    h1,h2,h3{margin-bottom:10px}
+    h1{font-size:30px}h2{font-size:22px}h3{font-size:16px;margin-top:14px}
+    p{margin-bottom:8px;font-size:14px;line-height:1.6;color:var(--muted)}
+    .small-text{font-size:12px;color:var(--muted)}
+    .hero{display:grid;grid-template-columns:minmax(0,2fr) minmax(0,1.5fr);gap:24px;align-items:center}
+    .hero-badge{
+      display:inline-flex;align-items:center;gap:8px;padding:4px 10px;border-radius:999px;
+      background:rgba(255,255,255,.06);font-size:11px;text-transform:uppercase;letter-spacing:.08em;
+      margin-bottom:10px;color:var(--muted);
+    }
+    body[data-theme="light"] .hero-badge{background:rgba(0,0,0,.04)}
+    .hero-buttons{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap}
+    .hero-card{
+      background:radial-gradient(circle at top,rgba(255,111,181,.25),rgba(0,0,0,.9));
+      border-radius:18px;padding:18px;border:1px solid rgba(255,255,255,.18);
+    }
+    body[data-theme="light"] .hero-card{
+      background:radial-gradient(circle at top,rgba(255,111,181,.18),#fff);
+      border-color:rgba(0,0,0,.08);
+    }
+    .hero-card-title{font-size:13px;margin-bottom:6px;color:var(--muted)}
+    .hero-card-main{font-size:18px;font-weight:700;margin-bottom:8px;color:var(--text)}
+    .pill-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+    .pill{
+      padding:4px 10px;border-radius:999px;font-size:11px;background:rgba(255,255,255,.06);color:var(--muted);
+    }
+    body[data-theme="light"] .pill{background:rgba(0,0,0,.04)}
+    a.link{color:var(--pink);text-decoration:underline;font-size:12px}
+    @media(max-width:800px){
+      .hero{grid-template-columns:1fr}
+      .road{width:90%}
     }
   </style>
 </head>
-<body>
-  <!-- Hidden admin click zone -->
-  <div id="admin-click-zone"></div>
-
-  <!-- Loading screen -->
+<body data-theme="dark">
   <div id="loading-screen">
     <div class="loading-van">
-      Towsum &amp; Gaddy<br />Delivery Services
+      Towsum &amp; Gaddy<br/>Delivery Services
+      <div class="loading-van-wheels"></div>
+      <div class="loading-van-headlights"></div>
     </div>
     <div class="loading-text">Loading your delivery lane…</div>
   </div>
 
-  <!-- Background road -->
   <div class="background-road">
     <div class="road">
-      <!-- multiple lines to create continuous effect -->
-      <div class="road-line" style="animation-delay: 0s;"></div>
-      <div class="road-line" style="animation-delay: 0.25s;"></div>
-      <div class="road-line" style="animation-delay: 0.5s;"></div>
-      <div class="road-line" style="animation-delay: 0.75s;"></div>
+      <div class="road-line" style="animation-delay:0s"></div>
+      <div class="road-line" style="animation-delay:.25s"></div>
+      <div class="road-line" style="animation-delay:.5s"></div>
+      <div class="road-line" style="animation-delay:.75s"></div>
     </div>
   </div>
 
-  <!-- PIN modal -->
-  <div id="pin-modal">
-    <div class="pin-box">
-      <h3>Admin Access</h3>
-      <p>Enter your private dashboard PIN.</p>
-      <input type="password" id="pin-input" placeholder="••••" />
-      <div class="pin-actions">
-        <button class="btn-secondary" id="pin-cancel">Cancel</button>
-        <button class="btn-primary" id="pin-submit">Enter</button>
-      </div>
-      <div class="small-text" style="margin-top:6px;">Default PIN: <strong>2468</strong> (change in Settings later).</div>
-    </div>
-  </div>
+  <div id="admin-click-zone" style="position:fixed;top:0;right:0;width:60px;height:60px;z-index:50;"></div>
 
-  <!-- Dashboard overlay -->
-  <div id="dashboard-overlay">
-    <div id="dashboard">
-      <div class="dashboard-header">
-        <div>
-          <div class="dashboard-title">Towsum &amp; Gaddy — Admin Dashboard</div>
-          <div class="dashboard-subtitle">Manage clients, deliveries, contracts, and employees in one place.</div>
-        </div>
-        <button class="dashboard-close" id="dashboard-close">Close</button>
-      </div>
-      <div class="dashboard-body">
-        <aside class="dashboard-sidebar">
-          <h4>Overview</h4>
-          <div class="dashboard-nav">
-            <button data-section="home" class="active">Dashboard Home</button>
-            <button data-section="clients">Clients</button>
-            <button data-section="deliveries">Deliveries</button>
-            <button data-section="contracts">Contracts</button>
-            <button data-section="employees">Employees</button>
-            <button data-section="settings">Settings</button>
-          </div>
-        </aside>
-        <div class="dashboard-main">
-          <!-- Sections -->
-          <div class="dash-section" id="dash-home">
-            <div class="dash-section-title">Overview</div>
-            <div class="dash-section-sub">Quick snapshot of your business activity.</div>
-            <div class="dash-grid">
-              <div class="dash-card">
-                <div class="dash-card-label">Total Clients</div>
-                <div class="dash-card-value" id="stat-clients">0</div>
-              </div>
-              <div class="dash-card">
-                <div class="dash-card-label">Upcoming Deliveries</div>
-                <div class="dash-card-value" id="stat-deliveries">0</div>
-              </div>
-              <div class="dash-card">
-                <div class="dash-card-label">Active Contracts</div>
-                <div class="dash-card-value" id="stat-contracts">0</div>
-              </div>
-              <div class="dash-card">
-                <div class="dash-card-label">Employees</div>
-                <div class="dash-card-value" id="stat-employees">0</div>
-              </div>
-            </div>
-            <button class="small-btn" id="quick-add-delivery">Quick Add Delivery (from last request)</button>
-          </div>
-
-          <div class="dash-section" id="dash-clients" style="display:none;">
-            <div class="dash-section-title">Clients</div>
-            <div class="dash-section-sub">All clients who have scheduled or requested deliveries.</div>
-            <table>
-              <thead>
-                <tr>
-                  <th>Name</th>
-                  <th>Phone</th>
-                  <th>Email</th>
-                  <th>Address</th>
-                  <th>Notes</th>
-                </tr>
-              </thead>
-              <tbody id="clients-table"></tbody>
-            </table>
-          </div>
-
-          <div class="dash-section" id="dash-deliveries" style="display:none;">
-            <div class="dash-section-title">Deliveries</div>
-            <div class="dash-section-sub">Manage all scheduled and completed deliveries.</div>
-            <table>
-              <thead>
-                <tr>
-                  <th>ID</th>
-                  <th>Client</th>
-                  <th>Pickup</th>
-                  <th>Drop‑off</th>
-                  <th>Date/Time</th>
-                  <th>Status</th>
-                </tr>
-              </thead>
-              <tbody id="deliveries-table"></tbody>
-            </table>
-          </div>
-
-          <div class="dash-section" id="dash-contracts" style="display:none;">
-            <div class="dash-section-title">Contracts</div>
-            <div class="dash-section-sub">Track agreements and recurring work.</div>
-            <table>
-              <thead>
-                <tr>
-                  <th>ID</th>
-                  <th>Client</th>
-                  <th>Type</th>
-                  <th>Rate</th>
-                  <th>Status</th>
-                </tr>
-              </thead>
-              <tbody id="contracts-table"></tbody>
-            </table>
-          </div>
-
-          <div class="dash-section" id="dash-employees" style="display:none;">
-            <div class="dash-section-title">Employees</div>
-            <div class="dash-section-sub">Store employee contact and role information.</div>
-            <table>
-              <thead>
-                <tr>
-                  <th>Name</th>
-                  <th>Phone</th>
-                  <th>Email</th>
-                  <th>Role</th>
-                </tr>
-              </thead>
-              <tbody id="employees-table"></tbody>
-            </table>
-          </div>
-
-          <div class="dash-section" id="dash-settings" style="display:none;">
-            <div class="dash-section-title">Settings</div>
-            <div class="dash-section-sub">Adjust your admin preferences.</div>
-            <label for="pin-change">Change Admin PIN</label>
-            <input type="password" id="pin-change" placeholder="New PIN" />
-            <button class="small-btn" id="pin-save">Save PIN</button>
-            <p class="small-text" style="margin-top:8px;">PIN is stored locally in this browser using localStorage.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Public site -->
   <header>
     <div class="nav">
       <div class="logo">Towsum &amp; Gaddy</div>
       <nav class="nav-links">
-        <a href="#home">Home</a>
-        <a href="#services">Services</a>
-        <a href="#pricing">Pricing</a>
-        <a href="#schedule">Schedule</a>
-        <a href="#contact">Contact</a>
+        <a href="index.html">Home</a>
+        <a href="services.html">Services</a>
+        <a href="pricing.html">Pricing</a>
+        <a href="schedule.html">Schedule</a>
+        <a href="contact.html">Contact</a>
+        <a href="privacy.html">Privacy</a>
       </nav>
-      <a href="#schedule" class="nav-cta">Schedule a Delivery</a>
+      <div class="nav-right">
+        <button class="theme-toggle" id="theme-toggle">
+          <span id="theme-icon">🌙</span><span id="theme-label">Dark</span>
+        </button>
+        <button class="truck-btn" onclick="location.href='schedule.html'">Schedule</button>
+      </div>
     </div>
   </header>
 
@@ -762,16 +227,12 @@
           </div>
           <h1>Towsum &amp; Gaddy — Delivery That Represents You</h1>
           <p>
-            Fast, professional 26‑foot delivery services with personality. We move furniture, freight, and oversized items
-            across your city with care, communication, and pride.
+            Fast, professional 26‑foot delivery services with personality. We move furniture, freight, and oversized
+            items across your city with care, communication, and pride.
           </p>
           <div class="hero-buttons">
-            <button class="btn-primary" onclick="document.getElementById('schedule').scrollIntoView({behavior:'smooth'})">
-              Schedule a Delivery
-            </button>
-            <button class="btn-secondary" onclick="document.getElementById('services').scrollIntoView({behavior:'smooth'})">
-              View Services
-            </button>
+            <button class="truck-btn" onclick="location.href='schedule.html'">Book a Delivery</button>
+            <button class="truck-btn secondary" onclick="location.href='services.html'">View Services</button>
           </div>
           <div class="pill-row" style="margin-top:18px;">
             <div class="pill">Same‑day options</div>
@@ -784,424 +245,35 @@
           <div class="hero-card-main">Book directly online in minutes.</div>
           <p class="small-text">
             Fill out a quick form, and your request goes straight to Towsum &amp; Gaddy at
-            <strong>Towsummanadement55@gmail.com</strong>.
+            <strong>Towsummanadement55@gmail.com</strong>. We also store your request in a private dashboard so nothing
+            gets lost.
           </p>
         </div>
       </div>
     </section>
-
-    <section id="services">
-      <h2>Services</h2>
-      <p>
-        Towsum &amp; Gaddy operates a 26‑foot delivery van built for real‑world work. From single oversized items to
-        recurring business routes, we’ve got the space and the muscle.
-      </p>
-      <ul class="small-text" style="margin-top:8px;list-style:disc;padding-left:18px;">
-        <li>Furniture and appliance delivery</li>
-        <li>Pallets, retail stock, and commercial freight</li>
-        <li>Event equipment and staging</li>
-        <li>Residential moves for large items</li>
-        <li>Optional liftgate and two‑person crew</li>
-      </ul>
-    </section>
-
-    <section id="pricing">
-      <h2>Pricing</h2>
-      <p>
-        Transparent, straightforward pricing so you always know what to expect. For custom or recurring work, we’ll
-        create a contract that fits your needs.
-      </p>
-      <ul class="small-text" style="margin-top:8px;list-style:disc;padding-left:18px;">
-        <li>Base hourly rate (plus mileage beyond local radius)</li>
-        <li>Flat‑rate options for common routes</li>
-        <li>Custom quotes for commercial contracts</li>
-      </ul>
-      <p class="small-text" style="margin-top:8px;">
-        Submit a request below and we’ll respond with exact pricing for your delivery.
-      </p>
-    </section>
-
-    <section id="schedule">
-      <h2>Schedule a Delivery</h2>
-      <p>
-        Use this form to request a delivery. Your details are stored securely in our system and sent directly to
-        <strong>Towsummanadement55@gmail.com</strong>.
-      </p>
-      <form id="schedule-form">
-        <div class="two-col">
-          <div>
-            <label for="client-name">Your Name</label>
-            <input id="client-name" required />
-          </div>
-          <div>
-            <label for="client-phone">Phone</label>
-            <input id="client-phone" required />
-          </div>
-        </div>
-        <div class="two-col">
-          <div>
-            <label for="client-email">Email</label>
-            <input id="client-email" type="email" required />
-          </div>
-          <div>
-            <label for="preferred-date">Preferred Date &amp; Time</label>
-            <input id="preferred-date" type="datetime-local" required />
-          </div>
-        </div>
-        <label for="pickup-address">Pickup Address</label>
-        <input id="pickup-address" required />
-        <label for="dropoff-address">Drop‑off Address</label>
-        <input id="dropoff-address" required />
-        <label for="cargo-description">Cargo Description</label>
-        <textarea id="cargo-description" placeholder="What are we moving? Size, weight, special handling…"></textarea>
-        <label for="addons">Add‑ons</label>
-        <select id="addons">
-          <option value="">None</option>
-          <option value="liftgate">Liftgate service</option>
-          <option value="two-person">Two‑person crew</option>
-          <option value="both">Liftgate + two‑person crew</option>
-        </select>
-        <button type="submit" class="btn-primary" style="margin-top:14px;">Submit Request</button>
-        <p class="small-text" style="margin-top:6px;">
-          By submitting, you agree to our <a href="#privacy" class="link">Privacy Policy</a>.
-        </p>
-      </form>
-    </section>
-
-    <section id="contact">
-      <h2>Contact</h2>
-      <p>Have questions or need a custom quote?</p>
-      <p class="small-text">
-        Email: <strong>Towsummanadement55@gmail.com</strong><br />
-        Hours: Mon–Sat, standard business hours (custom arrangements available)
-      </p>
-    </section>
-
-    <section id="privacy">
-      <h2>Privacy Policy — Towsum &amp; Gaddy Delivery Services</h2>
-      <p class="small-text"><strong>Last Updated:</strong> [Insert Date]</p>
-      <p>
-        Towsum &amp; Gaddy (“we”, “our”, “us”) is committed to protecting your privacy. This Privacy Policy explains how
-        we collect, use, and safeguard your information when you use our website and delivery services.
-      </p>
-      <h3>1. Information We Collect</h3>
-      <p>
-        We may collect your name, phone number, email address, pickup and drop‑off addresses, delivery details, and
-        payment‑related information if applicable. For business clients, we may collect company details and contract
-        information. For employees, we may store contact details, schedules, and employment documents for internal use.
-      </p>
-      <h3>2. How We Use Your Information</h3>
-      <p>
-        We use your information to schedule and manage deliveries, communicate with you, send confirmations and updates,
-        maintain internal records, manage employee operations, and store contracts and delivery history. We do not sell
-        your information. We only share it when required by law or when necessary to complete a delivery.
-      </p>
-      <h3>3. Data Storage &amp; Security</h3>
-      <p>
-        We use secure systems to store client information, delivery records, contracts, and employee files. Access is
-        restricted to authorized personnel only.
-      </p>
-      <h3>4. Cookies &amp; Tracking</h3>
-      <p>
-        Our website may use cookies to improve user experience and track performance. You can disable cookies in your
-        browser settings.
-      </p>
-      <h3>5. Your Rights</h3>
-      <p>
-        You may request a copy of your stored information, ask us to correct inaccuracies, or request deletion where
-        legally and operationally possible.
-      </p>
-      <h3>6. Contact Us</h3>
-      <p>
-        For privacy questions or data requests, contact us at <strong>Towsummanadement55@gmail.com</strong>.
-      </p>
-    </section>
   </main>
 
   <script>
-    // --- Simple localStorage helpers ---
-    const STORAGE_KEYS = {
-      clients: 'tg_clients',
-      deliveries: 'tg_deliveries',
-      contracts: 'tg_contracts',
-      employees: 'tg_employees',
-      settings: 'tg_settings'
-    };
-
-    function getData(key) {
-      try {
-        return JSON.parse(localStorage.getItem(key)) || [];
-      } catch {
-        return [];
-      }
+    const themeToggle=document.getElementById('theme-toggle');
+    const themeIcon=document.getElementById('theme-icon');
+    const themeLabel=document.getElementById('theme-label');
+    function applyTheme(t){
+      document.body.setAttribute('data-theme',t);
+      if(t==='light'){themeIcon.textContent='☀️';themeLabel.textContent='Light';}
+      else{themeIcon.textContent='🌙';themeLabel.textContent='Dark';}
+      localStorage.setItem('tg_theme',t);
     }
-
-    function setData(key, value) {
-      localStorage.setItem(key, JSON.stringify(value));
-    }
-
-    function getSettings() {
-      try {
-        return JSON.parse(localStorage.getItem(STORAGE_KEYS.settings)) || {};
-      } catch {
-        return {};
-      }
-    }
-
-    function setSettings(settings) {
-      localStorage.setItem(STORAGE_KEYS.settings, JSON.stringify(settings));
-    }
-
-    // --- Loading screen ---
-    window.addEventListener('load', () => {
-      setTimeout(() => {
-        document.getElementById('loading-screen').style.display = 'none';
-      }, 1600);
-    });
-
-    // --- Hidden admin click zone logic ---
-    let clickCount = 0;
-    let clickTimer = null;
-    const adminZone = document.getElementById('admin-click-zone');
-    const pinModal = document.getElementById('pin-modal');
-    const pinInput = document.getElementById('pin-input');
-    const pinCancel = document.getElementById('pin-cancel');
-    const pinSubmit = document.getElementById('pin-submit');
-    const dashboardOverlay = document.getElementById('dashboard-overlay');
-    const dashboardClose = document.getElementById('dashboard-close');
-
-    adminZone.addEventListener('click', () => {
-      clickCount++;
-      if (clickTimer) clearTimeout(clickTimer);
-      clickTimer = setTimeout(() => {
-        clickCount = 0;
-      }, 800);
-      if (clickCount >= 4) {
-        clickCount = 0;
-        openPinModal();
-      }
-    });
-
-    function openPinModal() {
-      pinModal.style.display = 'flex';
-      pinInput.value = '';
-      pinInput.focus();
-    }
-
-    function closePinModal() {
-      pinModal.style.display = 'none';
-    }
-
-    function openDashboard() {
-      dashboardOverlay.style.display = 'flex';
-      refreshDashboard();
-    }
-
-    function closeDashboard() {
-      dashboardOverlay.style.display = 'none';
-    }
-
-    pinCancel.addEventListener('click', closePinModal);
-
-    pinSubmit.addEventListener('click', () => {
-      const entered = pinInput.value.trim();
-      const settings = getSettings();
-      const storedPin = settings.pin || '2468';
-      if (entered === storedPin) {
-        closePinModal();
-        openDashboard();
-      } else {
-        alert('Incorrect PIN');
-      }
-    });
-
-    dashboardClose.addEventListener('click', closeDashboard);
-
-    // --- Dashboard navigation ---
-    const navButtons = document.querySelectorAll('.dashboard-nav button');
-    const sections = {
-      home: document.getElementById('dash-home'),
-      clients: document.getElementById('dash-clients'),
-      deliveries: document.getElementById('dash-deliveries'),
-      contracts: document.getElementById('dash-contracts'),
-      employees: document.getElementById('dash-employees'),
-      settings: document.getElementById('dash-settings')
-    };
-
-    navButtons.forEach(btn => {
-      btn.addEventListener('click', () => {
-        navButtons.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        const target = btn.getAttribute('data-section');
-        Object.keys(sections).forEach(key => {
-          sections[key].style.display = key === target ? 'block' : 'none';
-        });
-      });
-    });
-
-    // --- Dashboard stats + tables ---
-    function refreshDashboard() {
-      const clients = getData(STORAGE_KEYS.clients);
-      const deliveries = getData(STORAGE_KEYS.deliveries);
-      const contracts = getData(STORAGE_KEYS.contracts);
-      const employees = getData(STORAGE_KEYS.employees);
-
-      document.getElementById('stat-clients').textContent = clients.length;
-      document.getElementById('stat-deliveries').textContent = deliveries.length;
-      document.getElementById('stat-contracts').textContent = contracts.length;
-      document.getElementById('stat-employees').textContent = employees.length;
-
-      const clientsTable = document.getElementById('clients-table');
-      clientsTable.innerHTML = '';
-      clients.forEach(c => {
-        const tr = document.createElement('tr');
-        tr.innerHTML = `
-          <td>${c.name || ''}</td>
-          <td>${c.phone || ''}</td>
-          <td>${c.email || ''}</td>
-          <td>${c.address || ''}</td>
-          <td>${c.notes || ''}</td>
-        `;
-        clientsTable.appendChild(tr);
-      });
-
-      const deliveriesTable = document.getElementById('deliveries-table');
-      deliveriesTable.innerHTML = '';
-      deliveries.forEach(d => {
-        const tr = document.createElement('tr');
-        const statusClass =
-          d.status === 'Completed'
-            ? 'tag-completed'
-            : d.status === 'Confirmed'
-            ? 'tag-confirmed'
-            : 'tag-pending';
-        tr.innerHTML = `
-          <td>${d.id || ''}</td>
-          <td>${d.clientName || ''}</td>
-          <td>${d.pickup || ''}</td>
-          <td>${d.dropoff || ''}</td>
-          <td>${d.datetime || ''}</td>
-          <td><span class="tag ${statusClass}">${d.status || 'Pending'}</span></td>
-        `;
-        deliveriesTable.appendChild(tr);
-      });
-
-      const contractsTable = document.getElementById('contracts-table');
-      contractsTable.innerHTML = '';
-      contracts.forEach(c => {
-        const tr = document.createElement('tr');
-        tr.innerHTML = `
-          <td>${c.id || ''}</td>
-          <td>${c.clientName || ''}</td>
-          <td>${c.type || ''}</td>
-          <td>${c.rate || ''}</td>
-          <td>${c.status || ''}</td>
-        `;
-        contractsTable.appendChild(tr);
-      });
-
-      const employeesTable = document.getElementById('employees-table');
-      employeesTable.innerHTML = '';
-      employees.forEach(e => {
-        const tr = document.createElement('tr');
-        tr.innerHTML = `
-          <td>${e.name || ''}</td>
-          <td>${e.phone || ''}</td>
-          <td>${e.email || ''}</td>
-          <td>${e.role || ''}</td>
-        `;
-        employeesTable.appendChild(tr);
-      });
-    }
-
-    // --- Settings: change PIN ---
-    document.getElementById('pin-save').addEventListener('click', () => {
-      const newPin = document.getElementById('pin-change').value.trim();
-      if (!newPin) {
-        alert('Enter a new PIN.');
-        return;
-      }
-      const settings = getSettings();
-      settings.pin = newPin;
-      setSettings(settings);
-      alert('PIN updated for this browser.');
-      document.getElementById('pin-change').value = '';
-    });
-
-    // --- Schedule form handling ---
-    const scheduleForm = document.getElementById('schedule-form');
-    let lastRequest = null;
-
-    scheduleForm.addEventListener('submit', e => {
-      e.preventDefault();
-      const name = document.getElementById('client-name').value.trim();
-      const phone = document.getElementById('client-phone').value.trim();
-      const email = document.getElementById('client-email').value.trim();
-      const datetime = document.getElementById('preferred-date').value.trim();
-      const pickup = document.getElementById('pickup-address').value.trim();
-      const dropoff = document.getElementById('dropoff-address').value.trim();
-      const cargo = document.getElementById('cargo-description').value.trim();
-      const addons = document.getElementById('addons').value;
-
-      const clients = getData(STORAGE_KEYS.clients);
-      const deliveries = getData(STORAGE_KEYS.deliveries);
-
-      // Save client (simple: one entry per submission)
-      clients.push({
-        name,
-        phone,
-        email,
-        address: pickup,
-        notes: `Drop‑off: ${dropoff}. Cargo: ${cargo}`
-      });
-      setData(STORAGE_KEYS.clients, clients);
-
-      const deliveryId = 'D' + Date.now();
-      const delivery = {
-        id: deliveryId,
-        clientName: name,
-        pickup,
-        dropoff,
-        datetime,
-        cargo,
-        addons,
-        status: 'Pending'
+    applyTheme(localStorage.getItem('tg_theme')||'dark');
+    themeToggle.addEventListener('click',()=>{const c=document.body.getAttribute('data-theme');applyTheme(c==='dark'?'light':'dark');});
+    window.addEventListener('load',()=>{setTimeout(()=>{document.getElementById('loading-screen').style.display='none';},1600);});
+    document.getElementById('admin-click-zone').addEventListener('click',(()=>{
+      let count=0,timer=null;
+      return function(){
+        count++;if(timer)clearTimeout(timer);
+        timer=setTimeout(()=>{count=0;},800);
+        if(count>=4){count=0;window.location.href='admin.html';}
       };
-      deliveries.push(delivery);
-      setData(STORAGE_KEYS.deliveries, deliveries);
-
-      lastRequest = { name, phone, email, pickup, dropoff, datetime, cargo, addons };
-
-      // Build email body
-      const subject = encodeURIComponent('New Delivery Request - Towsum & Gaddy');
-      const body = encodeURIComponent(
-        `New delivery request:\n\n` +
-        `Name: ${name}\n` +
-        `Phone: ${phone}\n` +
-        `Email: ${email}\n` +
-        `Preferred Date/Time: ${datetime}\n` +
-        `Pickup Address: ${pickup}\n` +
-        `Drop‑off Address: ${dropoff}\n` +
-        `Cargo: ${cargo}\n` +
-        `Add‑ons: ${addons || 'None'}\n\n` +
-        `This request was submitted via the Towsum & Gaddy website.`
-      );
-
-      // Open mail client
-      window.location.href = `mailto:Towsummanadement55@gmail.com?subject=${subject}&body=${body}`;
-
-      alert('Your request has been recorded and prepared for email. Thank you!');
-      scheduleForm.reset();
-    });
-
-    // Quick add delivery from last request (for demo)
-    document.getElementById('quick-add-delivery').addEventListener('click', () => {
-      if (!lastRequest) {
-        alert('No recent request found in this session.');
-        return;
-      }
-      alert('Last request is already stored in Deliveries. This button is just a quick reminder.');
-    });
+    })());
   </script>
 </body>
 </html>
