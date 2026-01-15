@@ -11,7 +11,7 @@
 
 <body data-theme="dark">
 
-  <!-- Hidden admin tap zone (still active but not needed here) -->
+  <!-- Hidden admin tap zone -->
   <div id="admin-click-zone" style="position:fixed;top:0;right:0;width:50px;height:50px;z-index:50;"></div>
 
   <!-- Loading screen -->
@@ -39,15 +39,6 @@
     <div class="nav">
       <div class="logo">Admin — Towsum &amp; Gaddy</div>
 
-      <nav class="nav-links">
-        <a href="index.html">Home</a>
-        <a href="services.html">Services</a>
-        <a href="pricing.html">Pricing</a>
-        <a href="schedule.html">Schedule</a>
-        <a href="contact.html">Contact</a>
-        <a href="privacy.html">Privacy</a>
-      </nav>
-
       <div class="nav-right">
         <button class="theme-toggle" id="theme-toggle">
           <span id="theme-icon">🌙</span>
@@ -57,25 +48,38 @@
     </div>
   </header>
 
-  <!-- MAIN DASHBOARD -->
-  <main>
+  <!-- SIDEBAR + MAIN -->
+  <div style="display:flex;min-height:calc(100vh - 70px);">
 
-    <section id="dashboard">
+    <!-- SIDEBAR -->
+    <aside style="
+      width:240px;
+      background:var(--card);
+      border-right:1px solid var(--border-subtle);
+      padding:20px;
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+    ">
+      <button class="dash-btn active" data-section="home">🏠 Overview</button>
+      <button class="dash-btn" data-section="clients">👤 Clients</button>
+      <button class="dash-btn" data-section="deliveries">🚚 Deliveries</button>
+      <button class="dash-btn" data-section="contracts">📄 Contracts</button>
+      <button class="dash-btn" data-section="employees">🧑‍🔧 Employees</button>
+      <button class="dash-btn" data-section="settings">⚙️ Settings</button>
 
-      <!-- DASH NAV -->
-      <div class="dashboard-nav">
-        <button class="active" data-section="home">Overview</button>
-        <button data-section="clients">Clients</button>
-        <button data-section="deliveries">Deliveries</button>
-        <button data-section="contracts">Contracts</button>
-        <button data-section="employees">Employees</button>
-        <button data-section="settings">Settings</button>
+      <div style="margin-top:auto;">
+        <button class="truck-btn secondary" onclick="location.href='index.html'">Exit Dashboard</button>
       </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main style="flex:1;padding:24px;">
 
       <!-- OVERVIEW -->
-      <div id="dash-home">
+      <section id="dash-home">
         <h2>Dashboard Overview</h2>
-        <p class="small-text">Quick stats for your business.</p>
+        <p class="small-text">Your business at a glance.</p>
 
         <div class="two-col" style="margin-top:20px;">
           <div class="hero-card">
@@ -98,10 +102,10 @@
             <div id="stat-employees" class="hero-card-main">0</div>
           </div>
         </div>
-      </div>
+      </section>
 
       <!-- CLIENTS -->
-      <div id="dash-clients" style="display:none;">
+      <section id="dash-clients" style="display:none;">
         <h2>Clients</h2>
 
         <div class="hero-card" style="margin-bottom:20px;">
@@ -125,10 +129,10 @@
           </thead>
           <tbody id="clients-table"></tbody>
         </table>
-      </div>
+      </section>
 
       <!-- DELIVERIES -->
-      <div id="dash-deliveries" style="display:none;">
+      <section id="dash-deliveries" style="display:none;">
         <h2>Deliveries</h2>
 
         <div class="hero-card" style="margin-bottom:20px;">
@@ -152,10 +156,10 @@
           </thead>
           <tbody id="deliveries-table"></tbody>
         </table>
-      </div>
+      </section>
 
       <!-- CONTRACTS -->
-      <div id="dash-contracts" style="display:none;">
+      <section id="dash-contracts" style="display:none;">
         <h2>Contracts</h2>
 
         <div class="hero-card" style="margin-bottom:20px;">
@@ -179,10 +183,10 @@
           </thead>
           <tbody id="contracts-table"></tbody>
         </table>
-      </div>
+      </section>
 
       <!-- EMPLOYEES -->
-      <div id="dash-employees" style="display:none;">
+      <section id="dash-employees" style="display:none;">
         <h2>Employees</h2>
 
         <div class="hero-card" style="margin-bottom:20px;">
@@ -206,10 +210,10 @@
           </thead>
           <tbody id="employees-table"></tbody>
         </table>
-      </div>
+      </section>
 
       <!-- SETTINGS -->
-      <div id="dash-settings" style="display:none;">
+      <section id="dash-settings" style="display:none;">
         <h2>Settings</h2>
 
         <div class="hero-card">
@@ -217,11 +221,10 @@
           <input id="pin-change" placeholder="New PIN">
           <button id="pin-save" class="truck-btn" style="margin-top:10px;">Save PIN</button>
         </div>
-      </div>
+      </section>
 
-    </section>
-
-  </main>
+    </main>
+  </div>
 
 </body>
 </html>
