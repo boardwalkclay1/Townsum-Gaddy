@@ -1,55 +1,94 @@
-<!-- privacy.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <title>Towsum & Gaddy — Privacy Policy</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <!-- reuse same <style> block from index.html -->
+
+  <link rel="stylesheet" href="styles/style.css">
+  <script src="scripts/app.js" defer></script>
 </head>
+
 <body data-theme="dark">
-  <!-- loading, background, admin zone, header -->
+
+  <div id="admin-click-zone" style="position:fixed;top:0;right:0;width:60px;height:60px;z-index:50;"></div>
+
+  <div id="loading-screen">
+    <div class="loading-van">
+      Towsum &amp; Gaddy<br/>Delivery Services
+      <div class="loading-van-wheels"></div>
+      <div class="loading-van-headlights"></div>
+    </div>
+    <div class="loading-text">Loading your delivery lane…</div>
+  </div>
+
+  <div class="background-road">
+    <div class="road">
+      <div class="road-line"></div>
+      <div class="road-line" style="animation-delay:.25s"></div>
+      <div class="road-line" style="animation-delay:.5s"></div>
+      <div class="road-line" style="animation-delay:.75s"></div>
+    </div>
+  </div>
+
+  <header>
+    <div class="nav">
+      <div class="logo">Towsum &amp; Gaddy</div>
+
+      <nav class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="services.html">Services</a>
+        <a href="pricing.html">Pricing</a>
+        <a href="schedule.html">Schedule</a>
+        <a href="contact.html">Contact</a>
+        <a href="privacy.html" style="opacity:1;font-weight:700;">Privacy</a>
+      </nav>
+
+      <div class="nav-right">
+        <button class="theme-toggle" id="theme-toggle">
+          <span id="theme-icon">🌙</span>
+          <span id="theme-label">Dark</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
   <main>
+
     <section id="privacy">
-      <h2>Privacy Policy — Towsum &amp; Gaddy Delivery Services</h2>
-      <p class="small-text"><strong>Last Updated:</strong> [Insert Date]</p>
+      <h2>Privacy Policy</h2>
       <p>
-        Towsum &amp; Gaddy (“we”, “our”, “us”) is committed to protecting your privacy. This Privacy Policy explains how
-        we collect, use, and safeguard your information when you use our website and delivery services.
+        Towsum & Gaddy respects your privacy. We only collect information needed to schedule deliveries,
+        communicate with clients, and operate our business.
       </p>
-      <h3>1. Information We Collect</h3>
-      <p>
-        We may collect your name, phone number, email address, pickup and drop‑off addresses, delivery details, and
-        payment‑related information if applicable. For business clients, we may collect company details and contract
-        information. For employees, we may store contact details, schedules, and employment documents for internal use.
+
+      <h3>Information We Collect</h3>
+      <ul class="small-text">
+        <li>Name, phone number, and email</li>
+        <li>Pickup and drop‑off addresses</li>
+        <li>Cargo details</li>
+        <li>Messages sent through our contact form</li>
+      </ul>
+
+      <h3>How We Use Your Information</h3>
+      <ul class="small-text">
+        <li>To schedule and confirm deliveries</li>
+        <li>To communicate with clients</li>
+        <li>To improve our services</li>
+      </ul>
+
+      <h3>Your Data</h3>
+      <p class="small-text">
+        Your information is stored securely and never sold or shared with third parties.
       </p>
-      <h3>2. How We Use Your Information</h3>
-      <p>
-        We use your information to schedule and manage deliveries, communicate with you, send confirmations and updates,
-        maintain internal records, manage employee operations, and store contracts and delivery history. We do not sell
-        your information. We only share it when required by law or when necessary to complete a delivery.
-      </p>
-      <h3>3. Data Storage &amp; Security</h3>
-      <p>
-        We use secure systems to store client information, delivery records, contracts, and employee files. Access is
-        restricted to authorized personnel only.
-      </p>
-      <h3>4. Cookies &amp; Tracking</h3>
-      <p>
-        Our website may use cookies to improve user experience and track performance. You can disable cookies in your
-        browser settings.
-      </p>
-      <h3>5. Your Rights</h3>
-      <p>
-        You may request a copy of your stored information, ask us to correct inaccuracies, or request deletion where
-        legally and operationally possible.
-      </p>
-      <h3>6. Contact Us</h3>
-      <p>
-        For privacy questions or data requests, contact us at <strong>Towsummanadement55@gmail.com</strong>.
+
+      <h3>Contact Us</h3>
+      <p class="small-text">
+        For privacy questions, email: <strong>Towsummanadement55@gmail.com</strong>
       </p>
     </section>
+
   </main>
-  <!-- reuse same <script> as index -->
+
 </body>
 </html>
