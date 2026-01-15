@@ -1,34 +1,96 @@
-<!-- services.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <title>Towsum & Gaddy — Services</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <!-- reuse same <style> block from index.html -->
+
+  <link rel="stylesheet" href="styles/style.css">
+  <script src="scripts/app.js" defer></script>
 </head>
+
 <body data-theme="dark">
-  <!-- reuse loading-screen, background-road, admin-click-zone, header (nav links updated to this page active if you want) -->
-  <!-- main content -->
+
+  <div id="admin-click-zone" style="position:fixed;top:0;right:0;width:60px;height:60px;z-index:50;"></div>
+
+  <div id="loading-screen">
+    <div class="loading-van">
+      Towsum &amp; Gaddy<br/>Delivery Services
+      <div class="loading-van-wheels"></div>
+      <div class="loading-van-headlights"></div>
+    </div>
+    <div class="loading-text">Loading your delivery lane…</div>
+  </div>
+
+  <div class="background-road">
+    <div class="road">
+      <div class="road-line"></div>
+      <div class="road-line" style="animation-delay:.25s"></div>
+      <div class="road-line" style="animation-delay:.5s"></div>
+      <div class="road-line" style="animation-delay:.75s"></div>
+    </div>
+  </div>
+
+  <header>
+    <div class="nav">
+      <div class="logo">Towsum &amp; Gaddy</div>
+
+      <nav class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="services.html" style="opacity:1;font-weight:700;">Services</a>
+        <a href="pricing.html">Pricing</a>
+        <a href="schedule.html">Schedule</a>
+        <a href="contact.html">Contact</a>
+        <a href="privacy.html">Privacy</a>
+      </nav>
+
+      <div class="nav-right">
+        <button class="theme-toggle" id="theme-toggle">
+          <span id="theme-icon">🌙</span>
+          <span id="theme-label">Dark</span>
+        </button>
+        <button class="truck-btn" onclick="location.href='schedule.html'">Schedule</button>
+      </div>
+    </div>
+  </header>
+
   <main>
+
     <section id="services">
-      <h2>Services</h2>
+      <h2>Our Services</h2>
       <p>
-        Towsum &amp; Gaddy operates a 26‑foot delivery van built for real‑world work. From single oversized items to
-        recurring business routes, we’ve got the space and the muscle.
+        Towsum & Gaddy provides reliable, nationwide delivery using professional 26‑foot box trucks.
+        From oversized freight to residential moves, we handle it all.
       </p>
-      <ul class="small-text">
-        <li>Furniture and appliance delivery</li>
-        <li>Pallets, retail stock, and commercial freight</li>
-        <li>Event equipment and staging</li>
-        <li>Residential moves for large items</li>
-        <li>Optional liftgate and two‑person crew</li>
-      </ul>
-      <p class="small-text" style="margin-top:10px;">
-        Ready to move something? <a href="schedule.html" class="link">Schedule a delivery</a>.
-      </p>
+
+      <div class="two-col" style="margin-top:20px;">
+        <div class="hero-card">
+          <h3>Local & Long‑Distance Delivery</h3>
+          <p>We deliver anywhere in the United States — fast, insured, and professional.</p>
+        </div>
+
+        <div class="hero-card">
+          <h3>Commercial Freight</h3>
+          <p>Perfect for pallets, equipment, warehouse transfers, and recurring business deliveries.</p>
+        </div>
+
+        <div class="hero-card">
+          <h3>Residential Moves</h3>
+          <p>Furniture, appliances, large items — handled with care and precision.</p>
+        </div>
+
+        <div class="hero-card">
+          <h3>Event & Specialty Transport</h3>
+          <p>Stage equipment, trade shows, exhibits, and time‑sensitive deliveries.</p>
+        </div>
+      </div>
+
+      <button class="truck-btn" style="margin-top:20px;" onclick="location.href='schedule.html'">
+        Schedule a Delivery
+      </button>
     </section>
+
   </main>
-  <!-- reuse same <script> block from index.html (theme + loading + admin redirect) -->
+
 </body>
 </html>
