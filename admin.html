@@ -1,56 +1,227 @@
-<!-- admin.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <title>Towsum & Gaddy — Admin Dashboard</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <!-- reuse same <style> block from the big single-page admin version (dashboard, tables, helper popup, etc.) plus the truck cursor + loading styles from index.html -->
+
+  <link rel="stylesheet" href="styles/style.css">
+  <script src="scripts/app.js" defer></script>
 </head>
+
 <body data-theme="dark">
-  <!-- loading, background -->
+
+  <!-- Hidden admin tap zone (still active but not needed here) -->
+  <div id="admin-click-zone" style="position:fixed;top:0;right:0;width:50px;height:50px;z-index:50;"></div>
+
+  <!-- Loading screen -->
   <div id="loading-screen">
     <div class="loading-van">
-      Towsum &amp; Gaddy<br/>Delivery Services
+      Towsum &amp; Gaddy<br/>Admin Dashboard
       <div class="loading-van-wheels"></div>
       <div class="loading-van-headlights"></div>
     </div>
-    <div class="loading-text">Loading your delivery lane…</div>
+    <div class="loading-text">Loading dashboard…</div>
   </div>
+
+  <!-- Road background -->
   <div class="background-road">
     <div class="road">
-      <div class="road-line" style="animation-delay:0s"></div>
+      <div class="road-line"></div>
       <div class="road-line" style="animation-delay:.25s"></div>
       <div class="road-line" style="animation-delay:.5s"></div>
       <div class="road-line" style="animation-delay:.75s"></div>
     </div>
   </div>
 
-  <!-- dashboard only (no public header) -->
-  <!-- reuse the full dashboard HTML from the previous single-page version:
-       - dashboard overlay always visible here (no hidden click)
-       - clients/deliveries/contracts/employees/settings
-       - helper popup
-  -->
+  <!-- HEADER -->
+  <header>
+    <div class="nav">
+      <div class="logo">Admin — Towsum &amp; Gaddy</div>
 
-  <script>
-    // theme + loading
-    function applyTheme(t){document.body.setAttribute('data-theme',t);localStorage.setItem('tg_theme',t);}
-    applyTheme(localStorage.getItem('tg_theme')||'dark');
-    window.addEventListener('load',()=>{setTimeout(()=>{document.getElementById('loading-screen').style.display='none';},1600);});
+      <nav class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="services.html">Services</a>
+        <a href="pricing.html">Pricing</a>
+        <a href="schedule.html">Schedule</a>
+        <a href="contact.html">Contact</a>
+        <a href="privacy.html">Privacy</a>
+      </nav>
 
-    const STORAGE_KEYS={clients:'tg_clients',deliveries:'tg_deliveries',contracts:'tg_contracts',employees:'tg_employees',settings:'tg_settings'};
-    function getData(k){try{return JSON.parse(localStorage.getItem(k))||[]}catch{return[]}}
-    function setData(k,v){localStorage.setItem(k,JSON.stringify(v))}
-    function getSettings(){try{return JSON.parse(localStorage.getItem(STORAGE_KEYS.settings))||{}}catch{return{}}}
-    function setSettings(s){localStorage.setItem(STORAGE_KEYS.settings,JSON.stringify(s))}
+      <div class="nav-right">
+        <button class="theme-toggle" id="theme-toggle">
+          <span id="theme-icon">🌙</span>
+          <span id="theme-label">Dark</span>
+        </button>
+      </div>
+    </div>
+  </header>
 
-    // reuse all the dashboard JS from the previous single-page version:
-    // - refreshDashboard()
-    // - nav buttons
-    // - add client/delivery/contract/employee
-    // - change PIN
-    // - helper popup
-  </script>
+  <!-- MAIN DASHBOARD -->
+  <main>
+
+    <section id="dashboard">
+
+      <!-- DASH NAV -->
+      <div class="dashboard-nav">
+        <button class="active" data-section="home">Overview</button>
+        <button data-section="clients">Clients</button>
+        <button data-section="deliveries">Deliveries</button>
+        <button data-section="contracts">Contracts</button>
+        <button data-section="employees">Employees</button>
+        <button data-section="settings">Settings</button>
+      </div>
+
+      <!-- OVERVIEW -->
+      <div id="dash-home">
+        <h2>Dashboard Overview</h2>
+        <p class="small-text">Quick stats for your business.</p>
+
+        <div class="two-col" style="margin-top:20px;">
+          <div class="hero-card">
+            <h3>Total Clients</h3>
+            <div id="stat-clients" class="hero-card-main">0</div>
+          </div>
+
+          <div class="hero-card">
+            <h3>Total Deliveries</h3>
+            <div id="stat-deliveries" class="hero-card-main">0</div>
+          </div>
+
+          <div class="hero-card">
+            <h3>Total Contracts</h3>
+            <div id="stat-contracts" class="hero-card-main">0</div>
+          </div>
+
+          <div class="hero-card">
+            <h3>Total Employees</h3>
+            <div id="stat-employees" class="hero-card-main">0</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CLIENTS -->
+      <div id="dash-clients" style="display:none;">
+        <h2>Clients</h2>
+
+        <div class="hero-card" style="margin-bottom:20px;">
+          <h3>Add Client</h3>
+          <div class="two-col">
+            <input id="client-add-name" placeholder="Name">
+            <input id="client-add-phone" placeholder="Phone">
+          </div>
+          <div class="two-col">
+            <input id="client-add-email" placeholder="Email">
+            <input id="client-add-address" placeholder="Address">
+          </div>
+          <button id="client-add-btn" class="truck-btn" style="margin-top:10px;">Add Client</button>
+        </div>
+
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>Name</th><th>Phone</th><th>Email</th><th>Address</th><th>Notes</th>
+            </tr>
+          </thead>
+          <tbody id="clients-table"></tbody>
+        </table>
+      </div>
+
+      <!-- DELIVERIES -->
+      <div id="dash-deliveries" style="display:none;">
+        <h2>Deliveries</h2>
+
+        <div class="hero-card" style="margin-bottom:20px;">
+          <h3>Add Delivery</h3>
+          <div class="two-col">
+            <input id="del-add-client" placeholder="Client Name">
+            <input id="del-add-pickup" placeholder="Pickup Address">
+          </div>
+          <div class="two-col">
+            <input id="del-add-dropoff" placeholder="Drop‑off Address">
+            <input id="del-add-datetime" type="datetime-local">
+          </div>
+          <button id="del-add-btn" class="truck-btn" style="margin-top:10px;">Add Delivery</button>
+        </div>
+
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>ID</th><th>Client</th><th>Pickup</th><th>Drop‑off</th><th>Date/Time</th><th>Status</th>
+            </tr>
+          </thead>
+          <tbody id="deliveries-table"></tbody>
+        </table>
+      </div>
+
+      <!-- CONTRACTS -->
+      <div id="dash-contracts" style="display:none;">
+        <h2>Contracts</h2>
+
+        <div class="hero-card" style="margin-bottom:20px;">
+          <h3>Add Contract</h3>
+          <div class="two-col">
+            <input id="con-add-client" placeholder="Client Name">
+            <input id="con-add-type" placeholder="Contract Type">
+          </div>
+          <div class="two-col">
+            <input id="con-add-rate" placeholder="Rate">
+            <input id="con-add-status" placeholder="Status (Draft/Active)">
+          </div>
+          <button id="con-add-btn" class="truck-btn" style="margin-top:10px;">Add Contract</button>
+        </div>
+
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>ID</th><th>Client</th><th>Type</th><th>Rate</th><th>Status</th>
+            </tr>
+          </thead>
+          <tbody id="contracts-table"></tbody>
+        </table>
+      </div>
+
+      <!-- EMPLOYEES -->
+      <div id="dash-employees" style="display:none;">
+        <h2>Employees</h2>
+
+        <div class="hero-card" style="margin-bottom:20px;">
+          <h3>Add Employee</h3>
+          <div class="two-col">
+            <input id="emp-add-name" placeholder="Name">
+            <input id="emp-add-phone" placeholder="Phone">
+          </div>
+          <div class="two-col">
+            <input id="emp-add-email" placeholder="Email">
+            <input id="emp-add-role" placeholder="Role">
+          </div>
+          <button id="emp-add-btn" class="truck-btn" style="margin-top:10px;">Add Employee</button>
+        </div>
+
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>Name</th><th>Phone</th><th>Email</th><th>Role</th>
+            </tr>
+          </thead>
+          <tbody id="employees-table"></tbody>
+        </table>
+      </div>
+
+      <!-- SETTINGS -->
+      <div id="dash-settings" style="display:none;">
+        <h2>Settings</h2>
+
+        <div class="hero-card">
+          <h3>Change Admin PIN</h3>
+          <input id="pin-change" placeholder="New PIN">
+          <button id="pin-save" class="truck-btn" style="margin-top:10px;">Save PIN</button>
+        </div>
+      </div>
+
+    </section>
+
+  </main>
+
 </body>
 </html>
