@@ -1,166 +1,231 @@
-<main>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Towsum & Gaddy — Home</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <!-- HERO SECTION -->
-  <section id="home">
-    <div class="hero">
+  <!-- Correct global links -->
+  <link rel="stylesheet" href="styles/style.css">
+  <script src="scripts/app.js" defer></script>
+</head>
 
-      <!-- LEFT SIDE -->
-      <div>
-        <div class="hero-badge">
-          <span>Nationwide Delivery</span>
-          <span style="width:6px;height:6px;border-radius:50%;background:var(--green);"></span>
-          <span>26‑Foot Box Trucks</span>
-        </div>
+<body data-theme="dark">
 
-        <h1>America’s Most Reliable 26‑Foot Delivery Service</h1>
+  <!-- Hidden admin access -->
+  <div id="admin-click-zone" style="position:fixed;top:0;right:0;width:60px;height:60px;z-index:50;"></div>
 
-        <p>
-          Towsum & Gaddy delivers anywhere in the United States — fast, insured, and professional.
-          Whether it’s oversized freight, furniture, equipment, pallets, or full commercial loads,
-          our nationwide fleet handles it with precision and care.
-        </p>
-
-        <div class="hero-buttons">
-          <button class="truck-btn" onclick="location.href='schedule.html'">Book a Delivery</button>
-          <button class="truck-btn secondary" onclick="document.getElementById('estimate').scrollIntoView({behavior:'smooth'})">
-            Instant Estimate
-          </button>
-        </div>
-
-        <div class="pill-row" style="margin-top:18px;">
-          <div class="pill">Nationwide Coverage</div>
-          <div class="pill">Commercial & Residential</div>
-          <div class="pill">Same‑Day Options</div>
-          <div class="pill">Insured & Certified</div>
-          <div class="pill">15% Referral Discount</div>
-        </div>
-      </div>
-
-      <!-- RIGHT SIDE CARD -->
-      <div class="hero-card">
-        <div class="hero-card-title">Trusted Nationwide</div>
-        <div class="hero-card-main">Book in minutes. Delivered with care.</div>
-        <p class="small-text">
-          Your request is instantly sent to dispatch and stored securely in your private dashboard.
-        </p>
-      </div>
-
+  <!-- Loading screen -->
+  <div id="loading-screen">
+    <div class="loading-van">
+      Towsum &amp; Gaddy<br/>Delivery Services
+      <div class="loading-van-wheels"></div>
+      <div class="loading-van-headlights"></div>
     </div>
-  </section>
+    <div class="loading-text">Loading your delivery lane…</div>
+  </div>
 
-  <!-- WHY CHOOSE US -->
-  <section id="why-us">
-    <h2>Why Choose Towsum & Gaddy?</h2>
-    <p>We’re not just a delivery service — we’re a nationwide logistics partner.</p>
+  <!-- Road background -->
+  <div class="background-road">
+    <div class="road">
+      <div class="road-line" style="animation-delay:0s"></div>
+      <div class="road-line" style="animation-delay:.25s"></div>
+      <div class="road-line" style="animation-delay:.5s"></div>
+      <div class="road-line" style="animation-delay:.75s"></div>
+    </div>
+  </div>
 
-    <div class="two-col" style="margin-top:20px;">
-      <div class="hero-card">
-        <h3>Nationwide Coverage</h3>
-        <p>We deliver to all 50 states — major cities, rural towns, and everything in between.</p>
-      </div>
+  <!-- Header -->
+  <header>
+    <div class="nav">
+      <div class="logo">Towsum &amp; Gaddy</div>
 
-      <div class="hero-card">
-        <h3>Professional 26‑Foot Trucks</h3>
-        <p>Perfect for oversized items, freight, pallets, furniture, and equipment.</p>
-      </div>
+      <nav class="nav-links">
+        <a href="index.html" style="opacity:1;font-weight:700;">Home</a>
+        <a href="services.html">Services</a>
+        <a href="pricing.html">Pricing</a>
+        <a href="schedule.html">Schedule</a>
+        <a href="contact.html">Contact</a>
+        <a href="privacy.html">Privacy</a>
+      </nav>
 
-      <div class="hero-card">
-        <h3>Transparent Pricing</h3>
-        <p>No hidden fees. No surprises. You see your estimate before booking.</p>
-      </div>
-
-      <div class="hero-card">
-        <h3>Referral Rewards</h3>
-        <p>Refer someone and both of you get <strong>15% off</strong> your next delivery.</p>
+      <div class="nav-right">
+        <button class="theme-toggle" id="theme-toggle">
+          <span id="theme-icon">🌙</span>
+          <span id="theme-label">Dark</span>
+        </button>
+        <button class="truck-btn" onclick="location.href='schedule.html'">Schedule</button>
       </div>
     </div>
-  </section>
+  </header>
 
-  <!-- HOW IT WORKS -->
-  <section id="how-it-works">
-    <h2>How It Works</h2>
-    <p class="small-text">Simple, fast, and built for real customers.</p>
+  <!-- MAIN CONTENT -->
+  <main>
 
-    <ul class="small-text" style="margin-top:10px;">
-      <li><strong>1.</strong> Enter pickup & drop‑off details</li>
-      <li><strong>2.</strong> Add weight, dimensions, and mileage</li>
-      <li><strong>3.</strong> Get an instant estimate</li>
-      <li><strong>4.</strong> Submit your request</li>
-      <li><strong>5.</strong> We confirm and dispatch your truck</li>
-    </ul>
-  </section>
+    <!-- HERO SECTION -->
+    <section id="home">
+      <div class="hero">
 
-  <!-- INSTANT ESTIMATE -->
-  <section id="estimate">
-    <h2>Instant Estimate Calculator</h2>
-    <p>Enter your load details to get a quick estimate before booking.</p>
-
-    <form id="estimate-form">
-      <div class="two-col">
+        <!-- LEFT SIDE -->
         <div>
-          <label>Mileage (one‑way)</label>
-          <input id="est-miles" type="number" placeholder="e.g., 120" required />
+          <div class="hero-badge">
+            <span>Nationwide Delivery</span>
+            <span style="width:6px;height:6px;border-radius:50%;background:var(--green);"></span>
+            <span>26‑Foot Box Trucks</span>
+          </div>
+
+          <h1>America’s Most Reliable 26‑Foot Delivery Service</h1>
+
+          <p>
+            Towsum & Gaddy delivers anywhere in the United States — fast, insured, and professional.
+            Whether it’s oversized freight, furniture, equipment, pallets, or full commercial loads,
+            our nationwide fleet handles it with precision and care.
+          </p>
+
+          <div class="hero-buttons">
+            <button class="truck-btn" onclick="location.href='schedule.html'">Book a Delivery</button>
+            <button class="truck-btn secondary" onclick="document.getElementById('estimate').scrollIntoView({behavior:'smooth'})">
+              Instant Estimate
+            </button>
+          </div>
+
+          <div class="pill-row" style="margin-top:18px;">
+            <div class="pill">Nationwide Coverage</div>
+            <div class="pill">Commercial & Residential</div>
+            <div class="pill">Same‑Day Options</div>
+            <div class="pill">Insured & Certified</div>
+            <div class="pill">15% Referral Discount</div>
+          </div>
         </div>
-        <div>
-          <label>Weight (lbs)</label>
-          <input id="est-weight" type="number" placeholder="e.g., 800" required />
+
+        <!-- RIGHT SIDE CARD -->
+        <div class="hero-card">
+          <div class="hero-card-title">Trusted Nationwide</div>
+          <div class="hero-card-main">Book in minutes. Delivered with care.</div>
+          <p class="small-text">
+            Your request is instantly sent to dispatch and stored securely in your private dashboard.
+          </p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- WHY CHOOSE US -->
+    <section id="why-us">
+      <h2>Why Choose Towsum & Gaddy?</h2>
+      <p>We’re not just a delivery service — we’re a nationwide logistics partner.</p>
+
+      <div class="two-col" style="margin-top:20px;">
+        <div class="hero-card">
+          <h3>Nationwide Coverage</h3>
+          <p>We deliver to all 50 states — major cities, rural towns, and everything in between.</p>
+        </div>
+
+        <div class="hero-card">
+          <h3>Professional 26‑Foot Trucks</h3>
+          <p>Perfect for oversized items, freight, pallets, furniture, and equipment.</p>
+        </div>
+
+        <div class="hero-card">
+          <h3>Transparent Pricing</h3>
+          <p>No hidden fees. No surprises. You see your estimate before booking.</p>
+        </div>
+
+        <div class="hero-card">
+          <h3>Referral Rewards</h3>
+          <p>Refer someone and both of you get <strong>15% off</strong> your next delivery.</p>
         </div>
       </div>
+    </section>
 
-      <div class="two-col">
-        <div>
-          <label>Length (ft)</label>
-          <input id="est-length" type="number" placeholder="e.g., 6" required />
+    <!-- HOW IT WORKS -->
+    <section id="how-it-works">
+      <h2>How It Works</h2>
+      <p class="small-text">Simple, fast, and built for real customers.</p>
+
+      <ul class="small-text" style="margin-top:10px;">
+        <li><strong>1.</strong> Enter pickup & drop‑off details</li>
+        <li><strong>2.</strong> Add weight, dimensions, and mileage</li>
+        <li><strong>3.</strong> Get an instant estimate</li>
+        <li><strong>4.</strong> Submit your request</li>
+        <li><strong>5.</strong> We confirm and dispatch your truck</li>
+      </ul>
+    </section>
+
+    <!-- INSTANT ESTIMATE -->
+    <section id="estimate">
+      <h2>Instant Estimate Calculator</h2>
+      <p>Enter your load details to get a quick estimate before booking.</p>
+
+      <form id="estimate-form">
+        <div class="two-col">
+          <div>
+            <label>Mileage (one‑way)</label>
+            <input id="est-miles" type="number" placeholder="e.g., 120" required />
+          </div>
+          <div>
+            <label>Weight (lbs)</label>
+            <input id="est-weight" type="number" placeholder="e.g., 800" required />
+          </div>
         </div>
-        <div>
-          <label>Width (ft)</label>
-          <input id="est-width" type="number" placeholder="e.g., 4" required />
+
+        <div class="two-col">
+          <div>
+            <label>Length (ft)</label>
+            <input id="est-length" type="number" placeholder="e.g., 6" required />
+          </div>
+          <div>
+            <label>Width (ft)</label>
+            <input id="est-width" type="number" placeholder="e.g., 4" required />
+          </div>
         </div>
-      </div>
 
-      <div>
-        <label>Height (ft)</label>
-        <input id="est-height" type="number" placeholder="e.g., 5" required />
-      </div>
+        <div>
+          <label>Height (ft)</label>
+          <input id="est-height" type="number" placeholder="e.g., 5" required />
+        </div>
 
-      <button type="button" class="truck-btn" style="margin-top:14px;" onclick="calculateEstimate()">
-        Calculate Estimate
-      </button>
+        <button type="button" class="truck-btn" style="margin-top:14px;" onclick="calculateEstimate()">
+          Calculate Estimate
+        </button>
 
-      <p id="estimate-result" class="small-text" style="margin-top:10px;font-weight:bold;"></p>
-    </form>
-  </section>
+        <p id="estimate-result" class="small-text" style="margin-top:10px;font-weight:bold;"></p>
+      </form>
+    </section>
 
-  <!-- REFERRAL -->
-  <section id="referral">
-    <h2>Earn 15% Off Every Time You Refer Someone</h2>
-    <p>
-      Share your experience with a friend or business. When they book a delivery, both of you receive
-      <strong>15% off</strong> your next service.
-    </p>
-    <button class="truck-btn" onclick="location.href='schedule.html'">Schedule & Save</button>
-  </section>
-
-  <!-- COVERAGE MAP -->
-  <section id="coverage">
-    <h2>Nationwide Coverage</h2>
-    <p class="small-text">We deliver to all 50 states — major cities, rural towns, and everything in between.</p>
-
-    <div class="hero-card" style="text-align:center;padding:40px;">
-      <p style="font-size:14px;color:var(--muted);">
-        [Interactive U.S. coverage map coming soon]
+    <!-- REFERRAL -->
+    <section id="referral">
+      <h2>Earn 15% Off Every Time You Refer Someone</h2>
+      <p>
+        Share your experience with a friend or business. When they book a delivery, both of you receive
+        <strong>15% off</strong> your next service.
       </p>
-    </div>
-  </section>
+      <button class="truck-btn" onclick="location.href='schedule.html'">Schedule & Save</button>
+    </section>
 
-  <!-- BUSINESS PARTNERS -->
-  <section id="partners">
-    <h2>Business Partnerships</h2>
-    <p>
-      Need recurring deliveries? We work with retail stores, warehouses, event companies, furniture outlets,
-      and commercial clients nationwide.
-    </p>
-    <button class="truck-btn secondary" onclick="location.href='contact.html'">Contact Our Business Team</button>
-  </section>
+    <!-- COVERAGE MAP -->
+    <section id="coverage">
+      <h2>Nationwide Coverage</h2>
+      <p class="small-text">We deliver to all 50 states — major cities, rural towns, and everything in between.</p>
 
-</main>
+      <div class="hero-card" style="text-align:center;padding:40px;">
+        <p style="font-size:14px;color:var(--muted);">
+          [Interactive U.S. coverage map coming soon]
+        </p>
+      </div>
+    </section>
+
+    <!-- BUSINESS PARTNERS -->
+    <section id="partners">
+      <h2>Business Partnerships</h2>
+      <p>
+        Need recurring deliveries? We work with retail stores, warehouses, event companies, furniture outlets,
+        and commercial clients nationwide.
+      </p>
+      <button class="truck-btn secondary" onclick="location.href='contact.html'">Contact Our Business Team</button>
+    </section>
+
+  </main>
+
+</body>
+</html>
