@@ -1,32 +1,148 @@
-<!-- pricing.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <title>Towsum & Gaddy — Pricing</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <!-- reuse same <style> block from index.html -->
+
+  <!-- Correct global links -->
+  <link rel="stylesheet" href="styles/style.css">
+  <script src="scripts/app.js" defer></script>
 </head>
+
 <body data-theme="dark">
-  <!-- loading, background, admin zone, header -->
+
+  <!-- Hidden admin access -->
+  <div id="admin-click-zone" style="position:fixed;top:0;right:0;width:60px;height:60px;z-index:50;"></div>
+
+  <!-- Loading screen -->
+  <div id="loading-screen">
+    <div class="loading-van">
+      Towsum &amp; Gaddy<br/>Delivery Services
+      <div class="loading-van-wheels"></div>
+      <div class="loading-van-headlights"></div>
+    </div>
+    <div class="loading-text">Loading your delivery lane…</div>
+  </div>
+
+  <!-- Road background -->
+  <div class="background-road">
+    <div class="road">
+      <div class="road-line" style="animation-delay:0s"></div>
+      <div class="road-line" style="animation-delay:.25s"></div>
+      <div class="road-line" style="animation-delay:.5s"></div>
+      <div class="road-line" style="animation-delay:.75s"></div>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header>
+    <div class="nav">
+      <div class="logo">Towsum &amp; Gaddy</div>
+
+      <nav class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="services.html">Services</a>
+        <a href="pricing.html" style="opacity:1;font-weight:700;">Pricing</a>
+        <a href="schedule.html">Schedule</a>
+        <a href="contact.html">Contact</a>
+        <a href="privacy.html">Privacy</a>
+      </nav>
+
+      <div class="nav-right">
+        <button class="theme-toggle" id="theme-toggle">
+          <span id="theme-icon">🌙</span>
+          <span id="theme-label">Dark</span>
+        </button>
+        <button class="truck-btn" onclick="location.href='schedule.html'">Schedule</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN CONTENT -->
   <main>
+
+    <!-- PRICING INTRO -->
     <section id="pricing">
-      <h2>Pricing</h2>
+      <h2>Transparent, Fair, Nationwide Pricing</h2>
       <p>
-        Transparent, straightforward pricing so you always know what to expect. For custom or recurring work, we’ll
-        create a contract that fits your needs.
+        Towsum & Gaddy provides clear, upfront pricing for every delivery — whether it’s a local move or a nationwide
+        freight haul. No hidden fees. No surprises. Just honest, professional service.
       </p>
-      <ul class="small-text">
-        <li>Base hourly rate (plus mileage beyond local radius)</li>
-        <li>Flat‑rate options for common routes</li>
-        <li>Custom quotes for commercial contracts</li>
-      </ul>
-      <p class="small-text" style="margin-top:8px;">
-        Submit a request on our <a href="schedule.html" class="link">Schedule</a> page and we’ll respond with exact
-        pricing for your delivery.
-      </p>
+
+      <div class="two-col" style="margin-top:20px;">
+        <div class="hero-card">
+          <h3>Base Rate</h3>
+          <p>
+            Our standard rate includes truck, driver, fuel, and loading assistance.  
+            Additional mileage applies beyond the local radius.
+          </p>
+        </div>
+
+        <div class="hero-card">
+          <h3>Flat‑Rate Routes</h3>
+          <p>
+            Popular routes qualify for flat‑rate pricing — perfect for repeat customers and predictable deliveries.
+          </p>
+        </div>
+
+        <div class="hero-card">
+          <h3>Commercial Contracts</h3>
+          <p>
+            Businesses can secure discounted recurring deliveries with custom contract pricing.
+          </p>
+        </div>
+
+        <div class="hero-card">
+          <h3>Referral Discount</h3>
+          <p>
+            Refer a friend or business and both of you receive <strong>15% off</strong> your next delivery.
+          </p>
+        </div>
+      </div>
     </section>
+
+    <!-- WHAT AFFECTS PRICE -->
+    <section id="factors">
+      <h2>What Affects Your Price?</h2>
+      <p class="small-text">Your estimate is based on several key factors:</p>
+
+      <ul class="small-text" style="margin-top:10px;">
+        <li><strong>Mileage:</strong> Total distance from pickup to drop‑off</li>
+        <li><strong>Weight:</strong> Heavier loads require more fuel and handling</li>
+        <li><strong>Dimensions:</strong> Oversized items may require special positioning</li>
+        <li><strong>Labor:</strong> Additional crew or complex loading increases cost</li>
+        <li><strong>Urgency:</strong> Same‑day or rush deliveries may have premium rates</li>
+      </ul>
+    </section>
+
+    <!-- INSTANT ESTIMATE CTA -->
+    <section id="estimate-cta">
+      <h2>Want an Instant Estimate?</h2>
+      <p>
+        Use our calculator to get a quick estimate based on mileage, weight, and dimensions — before you book.
+      </p>
+      <button class="truck-btn" onclick="location.href='index.html#estimate'">Get Estimate</button>
+    </section>
+
+    <!-- BUSINESS PRICING -->
+    <section id="business-pricing">
+      <h2>Business & Commercial Pricing</h2>
+      <p>
+        We offer discounted rates for recurring deliveries, warehouse transfers, retail stock movement, event logistics,
+        and long‑term commercial partnerships.
+      </p>
+      <button class="truck-btn secondary" onclick="location.href='contact.html'">Contact Business Team</button>
+    </section>
+
+    <!-- CTA -->
+    <section id="final-cta">
+      <h2>Ready to Schedule?</h2>
+      <p>Submit your delivery details and get a fast confirmation from our dispatch team.</p>
+      <button class="truck-btn" onclick="location.href='schedule.html'">Schedule a Delivery</button>
+    </section>
+
   </main>
-  <!-- reuse same <script> -->
+
 </body>
 </html>
